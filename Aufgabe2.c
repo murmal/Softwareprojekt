@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdint.h>
+#include <string.h>
 
 int16_t counter(char *input) {
 
@@ -37,8 +38,62 @@ char* extract(char* input) {
 	}
 }
 
+typedef enum {
+	OK,
+	FAIL
+} Test;
+
+Test testExtract(char* input, char* expected) {
+	Test t;
+
+	if (strcmp( extract(input), expected) == 0) {
+		t = OK;
+	}
+	else {
+		t = FAIL;
+	}
+	return t;
+}
+
+
+typedef struct {
+	char* input;
+	char* expected;
+} TestCase;
+
+
+void runTests(int no, TestCase test[]) {
+	Test t;
+	int i;
+
+	for (i = 0; i < no; i++) {
+		printf("Test %d: ", i);
+		t = testExtract(test[i].input, test[i].expected);
+		if (OK == t)
+			printf("OK \n");
+		if (FAIL == t)
+			printf("FAIL \n");
+	}
+}
+
 
 	int16_t main() {
+
+		const int testNo = 7;
+		TestCase tests[7] = {
+			{ "", "" },
+			{ "Hallo", "Hallo" },
+			{ "Hallo::wie::gehts", "gehts" },
+			{ "::", "" },
+			{ "::jemand:zuhause::", "" },
+
+			{ "Hier:Sollte::das:zuruckgegeben:werden", "das:zuruckgegeben:werden" },
+			{ " Hallo::::asdf", "asdf" },
+
+		};
+
+		runTests(testNo, tests);
+
 
 		char i[] = "Hallo";
 		char q[] = "Hallo::wie::gehts";
