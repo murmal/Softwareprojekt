@@ -1,0 +1,67 @@
+#include <stdio.h>
+#include <stdint.h>
+#include <string.h>
+
+
+int16_t breakIntoWords(char *line, int maxwords, char *words[]) {
+	
+
+	int16_t wordBegin = 0;
+
+	int16_t length = 0;
+
+	 if (line != NULL) {
+
+		 int16_t lineLength = strlen(line);
+
+
+
+		 for (int16_t i = 0; i <= lineLength; i++) {
+
+			 if (line[i] == ' ') {
+
+				 int16_t wordEnd = i;
+
+				 if (length < maxwords) {
+
+					 words[length] = &line[wordBegin];
+					
+					 line[wordEnd] = '\0';
+					 length++;
+					 wordBegin = i + 1;
+
+				 }
+
+				 
+			 }
+
+
+
+
+
+		 }
+
+
+	 }
+
+	 return length;
+}
+
+
+
+int16_t main() {
+
+	int16_t max = 3;
+
+	char *line = "hallo wie geht es dir?";
+
+	char *words = &line;
+
+	breakIntoWords(line, max, words);
+
+
+
+
+
+
+}
