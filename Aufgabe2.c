@@ -38,6 +38,28 @@ char* extract(char* input) {
 	}
 }
 
+void extract2(char* input, char** output) {
+	char* adresse = input;
+	output = input;
+	int16_t laengeInput = counter(input);
+
+	while (laengeInput != 0) {
+
+		if ((*(adresse + laengeInput) == ':') && (*(adresse + laengeInput - 1) == ':')) {
+
+			output = adresse + laengeInput + 1;
+			
+
+		}
+		else { laengeInput--; }
+	}
+
+	if (laengeInput == 0) {
+		
+	}
+
+}
+
 typedef enum {
 	OK,
 	FAIL
@@ -95,15 +117,19 @@ void runTests(int no, TestCase test[]) {
 		runTests(testNo, tests);
 
 
+
+
+
 		char i[] = "Hallo";
 		char q[] = "Hallo::wie::gehts";
 		char a[] = "::";
 		char k[] = "::jemand:zuhause::";
 		char r[] = "Hier:Sollte::das:zuruckgegeben:werden";
 		char t[] = "Hallo::::asdf";
+		char t2[] = "Hallo::::asdf";
+		char r2[] = "Hier:Sollte::das:zuruckgegeben:werden";
 
-
-
+		
 
 		char* test = extract(i);
 		char* test1 = extract(q);
@@ -112,12 +138,12 @@ void runTests(int no, TestCase test[]) {
 		char* test4 = extract(r);
 		char* test5 = extract(t);
 
-		printf("Eingabe: %s \nAusgabe: %s\n\n", i,  test);
-		printf("Eingabe: %s \nAusgabe: %s\n\n", q, test1);
-		printf("Eingabe: %s \nAusgabe: %s\n\n", a, test2);
-		printf("Eingabe: %s \nAusgabe: %s\n\n", k, test3);
-		printf("Eingabe: %s \nAusgabe: %s\n\n", r, test4);
-		printf("Eingabe: %s \nAusgabe: %s\n\n", t, test5);
+		printf("Eingabe: %s \nAusgabe: %s\n\n", i, extract(i));
+		printf("Eingabe: %s \nAusgabe: %s\n\n", q, extract(q));
+		printf("Eingabe: %s \nAusgabe: %s\n\n", a, extract(a));
+		printf("Eingabe: %s \nAusgabe: %s\n\n", k, extract(k));
+		printf("Eingabe: %s \nAusgabe: %s\n\n", r, extract(r));
+		printf("Eingabe: %s \nAusgabe: %s\n\n", t, extract(t));
 
 		printf("");
 	}
