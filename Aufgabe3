@@ -9,6 +9,12 @@ int16_t breakIntoWords(char *line, int maxwords, char *words[]) {
 	int16_t wordBegin = 0;
 
 	int16_t length = 0;
+	int16_t i = 0;
+	int weitermachen = 1;
+
+	char k = ' ';
+
+	int i2;
 
 	 if (line != NULL) {
 
@@ -16,52 +22,101 @@ int16_t breakIntoWords(char *line, int maxwords, char *words[]) {
 
 
 
-		 for (int16_t i = 0; i <= lineLength; i++) {
+		 for (i; i <= lineLength && weitermachen == 1; i++) {
+			
+			 if (line[i] == '\0'){
+				 weitermachen = 0;
+			 }
 
-			 if (line[i] == ' ') {
+			 if (line[i] == ' ' || line[i] == '\0') {
+				 
 
 				 int16_t wordEnd = i;
-
-				 if (length < maxwords) {
+				 
+				 if (length < maxwords ) {
 
 					 words[length] = &line[wordBegin];
 					
 					 line[wordEnd] = '\0';
 					 length++;
 					 wordBegin = i + 1;
-
-				 }
-
-				 
+				 }			 
 			 }
-
-
-
-
-
 		 }
-
-
 	 }
 
+	 else{
+		 return 0;
+	 }
+
+	
+
 	 return length;
+
+
 }
 
 
 
-int16_t main() {
-
-	int16_t max = 3;
-
-	char *line = "hallo wie geht es dir?";
-
-	char *words = &line;
-
-	breakIntoWords(line, max, words);
 
 
+int main() {
 
+	int i;
 
+	char line[] = "hallo wie geht es dir?";
+	int maxwords = 3;
+	char *words[3];
 
+	char line1[] = "hallo";
+	int maxwords1 = 3;
+	char *words1[3];
+	
+	char line2[] = "dies sind vier woerter";
+	int maxwords2 = 4;
+	char *words2[4];
 
+	char line3[] = "dies sind nicht vier woerter ";
+	int maxwords3 = 5;
+	char *words3[5];
+
+	char line4[] = "";
+	int maxwords4 = 3;
+	char *words4[3];
+
+	int laenge = breakIntoWords(line, maxwords, words);
+	int laenge1 = breakIntoWords(line1, maxwords1, words1);
+	int laenge2 = breakIntoWords(line2, maxwords2, words2);
+	int laenge3 = breakIntoWords(line3, maxwords3, words3);
+	int laenge4 = breakIntoWords(line4, maxwords4, words4);
+
+	
+
+	printf("Eingabestring: 'hallo wie geht es dir?'\nMaximal ausammelbare Wörter: %d\n", maxwords);
+	for (i = 0; i < laenge; i++){
+		printf("%d. Wort: %s\n", i, words[i]);
+	}
+	printf("\n\n");
+	printf("Eingabestring: 'hallo'\nMaximal ausammelbare Wörter: %d\n", maxwords1);
+	for (i = 0; i < laenge1; i++){
+		printf("%d. Wort: %s\n", i, words1[i]);
+	}
+	printf("\n\n");
+	printf("Eingabestring: 'dies sind vier woerter'\nMaximal ausammelbare Wörter: %d\n", maxwords2);
+	for (i = 0; i < laenge2; i++){
+		printf("%d. Wort: %s\n", i, words2[i]);
+	}
+	printf("\n\n");
+	printf("Eingabestring: 'dies sind nicht vier woerter '\nMaximal ausammelbare Wörter: %d\n", maxwords3);
+	for (i = 0; i < laenge3; i++){
+		printf("%d. Wort: %s\n", i, words3[i]);
+	}
+	printf("\n\n");
+	printf("Eingabestring: ''\nMaximal ausammelbare Wörter: %d\n", maxwords4);
+	for (i = 0; i < laenge4; i++){
+		printf("%d. Wort: %s\n", i, words4[i]);
+	}
+
+	printf("ende");
+	
 }
