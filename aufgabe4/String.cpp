@@ -65,11 +65,24 @@ char& String::operator[](int index) {
 	
 }
 
-String& String::operator=(String& s) {
+String& String::operator=(String& s3) {
 	
-	String s2(s);
-	this->size = s2.size;
-	this->str = s2.str;
+	
+	if (this != &s3) {
+
+
+		String s1(s3);
+
+		delete[] str;
+
+		str = new char[s3.size];
+		size = s3.size;
+
+		for (int i = 0; i <= size; i++) {
+			str[i] = s1.str[i];
+		}
+
+	}
 
 	return *this;
 
